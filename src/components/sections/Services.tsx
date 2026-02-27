@@ -74,7 +74,11 @@ export default function Services() {
             </div>
           ))}
         </div>
-        <div data-reveal data-delay="100" className="mt-12 bg-gradient-to-l from-rose-500 to-rose-400 rounded-3xl p-8 text-center text-white">
+        <div
+          data-reveal
+          data-delay="100"
+          className="mt-12 bg-gradient-to-l from-rose-500 to-rose-400 rounded-3xl p-8 text-center text-white"
+        >
           <p className="text-xl font-extrabold mb-2">מוכנה להתחיל את המסע?</p>
           <p className="text-rose-100 text-sm mb-6">
             שלחי הודעה בוואטסאפ ונקבע שיחת ייעוץ ראשונית בחינם לגמרי

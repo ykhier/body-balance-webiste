@@ -100,7 +100,9 @@ export default function Hero() {
                   <p className="text-2xl font-extrabold text-rose-500">
                     {s.value}
                   </p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">{s.label}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">
+                    {s.label}
+                  </p>
                 </div>
               ))}
             </div>

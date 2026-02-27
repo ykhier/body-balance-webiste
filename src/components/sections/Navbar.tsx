@@ -45,7 +45,10 @@ export default function Navbar() {
       // Fire 'reveal-check' at 4 intervals to guarantee ScrollAnimations
       // reveals every element regardless of smooth-scroll speed/duration.
       [100, 350, 700, 1200].forEach((ms) =>
-        setTimeout(() => window.dispatchEvent(new CustomEvent("reveal-check")), ms)
+        setTimeout(
+          () => window.dispatchEvent(new CustomEvent("reveal-check")),
+          ms,
+        ),
       );
     }
   };

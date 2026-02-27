@@ -21,7 +21,11 @@ export default function About() {
       <div className="section-container">
         <div className="flex flex-col md:flex-row items-center gap-12">
           {/* Visual accent panel */}
-          <div data-reveal data-from="right" className="flex-shrink-0 w-full md:w-80">
+          <div
+            data-reveal
+            data-from="right"
+            className="flex-shrink-0 w-full md:w-80"
+          >
             <div className="relative bg-gradient-to-br from-rose-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 rounded-4xl p-8 shadow-card">
               <span
                 className="text-rose-200 font-extrabold text-8xl leading-none absolute top-4 right-6 select-none"

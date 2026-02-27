@@ -21,7 +21,9 @@ import { useEffect } from "react";
 
 export default function ScrollAnimations() {
   useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     // ── Reveal ────────────────────────────────────────────────────
     // instant=true → used for elements above the viewport after a
@@ -46,12 +48,12 @@ export default function ScrollAnimations() {
     // Double-rAF ensures the browser paints the snapped hidden state
     // before we re-enable transitions for the next reveal cycle.
     const resetEl = (el: HTMLElement) => {
-      el.style.transition = "none";        // snap immediately — no reverse anim
+      el.style.transition = "none"; // snap immediately — no reverse anim
       el.style.transitionDelay = "0ms";
       el.classList.remove("is-visible");
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          el.style.transition = "";        // re-enable for next reveal
+          el.style.transition = ""; // re-enable for next reveal
           el.style.transitionDelay = "";
         });
       });
@@ -71,10 +73,12 @@ export default function ScrollAnimations() {
           }
         });
       },
-      { threshold: 0, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" },
     );
 
-    document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+    document
+      .querySelectorAll("[data-reveal]")
+      .forEach((el) => observer.observe(el));
 
     // ── 2. Nav-jump fallback ──────────────────────────────────────
     // After a programmatic smooth-scroll the observer can miss fast-
@@ -83,7 +87,8 @@ export default function ScrollAnimations() {
     const revealInViewport = () => {
       document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
         const { top, bottom } = el.getBoundingClientRect();
-        if (bottom <= 0)                        revealEl(el, true);   // above fold
+        if (bottom <= 0)
+          revealEl(el, true); // above fold
         else if (top < window.innerHeight * 0.96) revealEl(el, false); // in view
         // below fold → observer will handle it naturally
       });
@@ -91,7 +96,10 @@ export default function ScrollAnimations() {
 
     window.addEventListener("scrollend", revealInViewport, { passive: true });
     let debounce: ReturnType<typeof setTimeout>;
-    const onScrollDebounce = () => { clearTimeout(debounce); debounce = setTimeout(revealInViewport, 150); };
+    const onScrollDebounce = () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(revealInViewport, 150);
+    };
     window.addEventListener("scroll", onScrollDebounce, { passive: true });
     // Navbar dispatches this at 100/350/700/1200 ms after a nav click
     window.addEventListener("reveal-check", revealInViewport);
@@ -107,7 +115,8 @@ export default function ScrollAnimations() {
         ticking = false;
       });
     };
-    if (!reduced && parallaxEl) window.addEventListener("scroll", onScroll, { passive: true });
+    if (!reduced && parallaxEl)
+      window.addEventListener("scroll", onScroll, { passive: true });
 
     // ── 4. Navbar compact state ───────────────────────────────────
     const headerEl = document.querySelector<HTMLElement>("header");
