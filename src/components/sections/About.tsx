@@ -3,6 +3,7 @@
 
 import React from "react";
 import SectionTitle from "@/components/ui/SectionTitle";
+import Reveal from "@/components/ui/Reveal";
 
 const HIGHLIGHTS = [
   { icon: "🌱", text: "תהליך אישי" },
@@ -21,7 +22,7 @@ export default function About() {
       <div className="section-container">
         <div className="flex flex-col md:flex-row items-center gap-12">
           {/* Visual accent panel */}
-          <div className="flex-shrink-0 w-full md:w-80">
+          <Reveal effect="slide-right" className="flex-shrink-0 w-full md:w-80">
             <div className="relative bg-gradient-to-br from-rose-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 rounded-4xl p-8 shadow-card">
               <span
                 className="text-rose-200 font-extrabold text-8xl leading-none absolute top-4 right-6 select-none"
@@ -35,10 +36,11 @@ export default function About() {
               </p>
               <p className="mt-4 font-bold text-rose-500 text-sm">בראאה חיר</p>
               <div className="mt-6 grid grid-cols-2 gap-2">
-                {HIGHLIGHTS.map((h) => (
+                {HIGHLIGHTS.map((h, i) => (
                   <div
                     key={h.text}
-                    className="flex items-center gap-2 bg-white dark:bg-gray-600 rounded-xl px-3 py-2 shadow-sm"
+                    className="flex items-center gap-2 bg-white dark:bg-gray-600 rounded-xl px-3 py-2 shadow-sm reveal-scale-in"
+                    style={{ animationDelay: `${300 + i * 80}ms`, animationFillMode: "both" }}
                   >
                     <span className="text-lg">{h.icon}</span>
                     <span className="text-xs font-semibold text-gray-700 dark:text-gray-100">
@@ -48,10 +50,10 @@ export default function About() {
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Text Content */}
-          <div className="flex-1">
+          <Reveal effect="slide-left" className="flex-1">
             <SectionTitle
               title="קצת עליי"
               subtitle="הסיפור שלי הוא ההוכחה שהשינוי אפשרי"
@@ -78,7 +80,7 @@ export default function About() {
                 ברגעים הקשים. כי אנחנו לא עושים את זה לבד.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
