@@ -1,0 +1,41 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// =============================================
+// פניות מטופס יצירת קשר
+// =============================================
+model ContactSubmission {
+  id         Int       @id @default(autoincrement())
+  name       String
+  email      String
+  phone      String
+  message    String
+  createdAt  DateTime  @default(now())
+  read       Boolean   @default(false)
+  handledAt  DateTime?
+}
+
+// =============================================
+// ניהול לקוחות (לפאנל מנהל עתידי)
+// =============================================
+model Client {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String?
+  notes     String?
+  plan      String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+

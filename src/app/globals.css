@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   CSS Custom Properties
+   ============================================= */
+:root {
+  --color-primary: #4E8B6E;
+  --color-secondary: #5ea07c;
+  --color-light: #edf4f0;
+}
+
+/* =============================================
+   Base Styles – RTL First
+   ============================================= */
+html {
+  scroll-behavior: smooth;
+  direction: rtl;
+  font-family: 'Heebo', Arial, sans-serif;
+}
+
+body {
+  background-color: #fafafa;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =============================================
+   DARK MODE — Global Overrides
+   When .dark is on <html>, everything flips
+   ============================================= */
+.dark body {
+  background-color: #0d0d0d;
+  color: #f0f0f0;
+}
+
+/* Sections */
+.dark section {
+  background-color: #111111 !important;
+  background-image: none !important;
+}
+
+/* White backgrounds → dark */
+.dark .bg-white {
+  background-color: #1a1a1a !important;
+}
+
+/* Cards */
+.dark .rounded-3xl,
+.dark .rounded-4xl,
+.dark .rounded-2xl {
+  background-color: #1e1e1e;
+}
+
+/* Text */
+.dark .text-gray-800 { color: #ffffff !important; }
+.dark .text-gray-700 { color: #ffffff !important; }
+.dark .text-gray-600 { color: #ffffff !important; }
+.dark .text-gray-500 { color: #ffffff !important; }
+.dark .text-gray-400 { color: #ffffff !important; }
+
+/* Borders */
+.dark .border-gray-100 { border-color: #2d2d2d !important; }
+.dark .border-gray-200 { border-color: #2d2d2d !important; }
+.dark .border-rose-50  { border-color: #2d2d2d !important; }
+.dark .border-white    { border-color: #2d2d2d !important; }
+
+/* Inputs */
+.dark input,
+.dark textarea {
+  background-color: #1e1e1e !important;
+  border-color: #2d2d2d !important;
+  color: #f0f0f0 !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Navbar */
+.dark header {
+  background-color: rgba(13,13,13,0.95) !important;
+}
+
+/* Gradient section backgrounds */
+.dark .from-rose-50,
+.dark .from-white,
+.dark .via-white,
+.dark .to-white,
+.dark .to-orange-50,
+.dark .to-rose-50 {
+  --tw-gradient-from: #111111 !important;
+  --tw-gradient-via: #111111 !important;
+  --tw-gradient-to: #1a1a1a !important;
+}
+
+/* Highlight cards inside About */
+.dark .bg-gradient-to-br {
+  background: #1e1e1e !important;
+}
+
+/* Shadows */
+.dark .shadow-card {
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.5) !important;
+}
+
+/* =============================================
+   Utility Classes
+   ============================================= */
+@layer components {
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .card-base {
+    @apply bg-white rounded-3xl shadow-card p-6 transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:shadow-soft hover:-translate-y-1;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-gradient-to-l from-rose-500 to-rose-400
+           text-white font-bold px-8 py-3 rounded-full
+           shadow-soft hover:shadow-lg hover:-translate-y-0.5
+           transition-all duration-200 focus:outline-none
+           focus:ring-4 focus:ring-rose-200 text-base;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2
+           border-2 border-rose-400 text-rose-500 font-bold
+           px-8 py-3 rounded-full hover:bg-rose-50
+           transition-all duration-200 text-base;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-extrabold text-gray-800 text-center mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-gray-500 text-center text-base md:text-lg mb-12 max-w-xl mx-auto;
+  }
+
+  /* Form field */
+  .form-input {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-3
+           text-gray-700 bg-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-rose-300
+           focus:border-transparent transition text-sm md:text-base;
+  }
+
+  .form-label {
+    @apply block text-sm font-semibold text-gray-700 mb-1;
+  }
+}
+
+/* =============================================
+   Scrollbar (optional polish)
+   ============================================= */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #edf4f0; }
+::-webkit-scrollbar-thumb { background: #7ab89b; border-radius: 10px; }
