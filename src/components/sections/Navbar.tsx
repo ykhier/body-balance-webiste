@@ -21,7 +21,7 @@ export default function Navbar() {
 
   // Add shadow when scrolled
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -60,7 +60,7 @@ export default function Navbar() {
             e.preventDefault();
             handleNavClick("#hero");
           }}
-          className="flex items-center gap-1.5 hover:opacity-80 transition"
+          className="navbar-logo flex items-center gap-1.5 hover:opacity-80 transition"
         >
           <span className="text-2xl">🌿</span>
           <span className="font-extrabold text-xl tracking-wide">

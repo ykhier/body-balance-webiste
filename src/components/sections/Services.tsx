@@ -43,14 +43,18 @@ export default function Services() {
       aria-labelledby="services-heading"
     >
       <div className="section-container">
-        <SectionTitle
-          title="השירותים שלי"
-          subtitle="הצעד הראשון לשינוי - תוכנית שנבנית בשבילך ורק בשבילך"
-        />
+        <div data-reveal>
+          <SectionTitle
+            title="השירותים שלי"
+            subtitle="הצעד הראשון לשינוי - תוכנית שנבנית בשבילך ורק בשבילך"
+          />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {SERVICES.map((service) => (
+          {SERVICES.map((service, i) => (
             <div
               key={service.title}
+              data-reveal
+              data-delay={String(i * 120)}
               className={`bg-gradient-to-br ${service.gradient} dark:from-gray-800 dark:to-gray-700 rounded-3xl p-6 border border-white dark:border-gray-600 flex gap-5 items-start shadow-card hover:shadow-soft hover:-translate-y-1 transition-all duration-300 group`}
             >
               <div
@@ -70,7 +74,7 @@ export default function Services() {
             </div>
           ))}
         </div>
-        <div className="mt-12 bg-gradient-to-l from-rose-500 to-rose-400 rounded-3xl p-8 text-center text-white">
+        <div data-reveal data-delay="100" className="mt-12 bg-gradient-to-l from-rose-500 to-rose-400 rounded-3xl p-8 text-center text-white">
           <p className="text-xl font-extrabold mb-2">מוכנה להתחיל את המסע?</p>
           <p className="text-rose-100 text-sm mb-6">
             שלחי הודעה בוואטסאפ ונקבע שיחת ייעוץ ראשונית בחינם לגמרי

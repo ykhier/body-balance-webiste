@@ -17,19 +17,20 @@ export default function Hero() {
       />
       <div
         aria-hidden="true"
-        className="absolute bottom-10 right-10 w-96 h-96 bg-orange-100 rounded-full blur-3xl opacity-40 pointer-events-none"
+        data-parallax="true"
+        className="hero-parallax-blob absolute bottom-10 right-10 w-96 h-96 bg-orange-100 rounded-full blur-3xl opacity-40 pointer-events-none"
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12 py-16">
           {/* Text Content */}
           <div className="flex-1 text-center md:text-right">
-            <span className="inline-block bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wide">
+            <span className="hero-anim-badge inline-block bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wide">
               🌿 מאמנת תזונה מוסמכת
             </span>
             <h1
               id="hero-heading"
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white leading-snug mb-5"
+              className="hero-anim-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white leading-snug mb-5"
             >
               שלום, אני <span className="text-rose-500">בראאה חיר</span>
               <br />
@@ -37,7 +38,7 @@ export default function Hero() {
                 ליווי תזונאי אישי ומקצועי
               </span>
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 text-base md:text-lg leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">
+            <p className="hero-anim-text text-gray-500 dark:text-gray-400 text-base md:text-lg leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">
               אני מאמנת תזונה מוסמכת עם ניסיון של שלוש שנים. לאחר שהצלחתי בעצמי
               לרדת במשקל ולשנות את חיי, אני מלווה נשים לבנות אורח חיים בריא ללא
               ויתורים וללא רעב.
@@ -50,12 +51,12 @@ export default function Hero() {
                   .querySelector("#services")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-l from-rose-500 to-rose-400 text-white font-bold px-10 py-4 rounded-full shadow-soft hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-rose-200 text-base"
+              className="hero-anim-cta inline-flex items-center justify-center gap-2 bg-gradient-to-l from-rose-500 to-rose-400 text-white font-bold px-10 py-4 rounded-full shadow-soft hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-rose-200 text-base"
               aria-label="עבור לשירותים שלי"
             >
               לשירותים שלי ✨
             </a>
-            <div className="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
+            <div className="hero-anim-social flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
               <a
                 href="https://wa.me/972542576613"
                 target="_blank"
@@ -89,7 +90,7 @@ export default function Hero() {
                 אינסטגרם
               </a>
             </div>
-            <div className="flex items-center gap-6 mt-10 justify-center md:justify-start">
+            <div className="hero-anim-stats flex items-center gap-6 mt-10 justify-center md:justify-start">
               {[
                 { value: "3+", label: "שנות ניסיון" },
                 { value: "100+", label: "לקוחות מרוצים" },
@@ -106,7 +107,7 @@ export default function Hero() {
           </div>
 
           {/* Profile Image */}
-          <div className="flex-shrink-0 flex flex-col items-center gap-4">
+          <div className="hero-anim-image flex-shrink-0 flex flex-col items-center gap-4">
             <div className="relative">
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-rose-300 to-orange-200 blur-xl opacity-60 scale-110" />
               <div className="relative z-10 w-[260px] h-[260px] rounded-full overflow-hidden border-4 border-white shadow-soft">

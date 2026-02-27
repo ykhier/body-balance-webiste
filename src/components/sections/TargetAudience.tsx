@@ -48,16 +48,18 @@ export default function TargetAudience() {
       aria-labelledby="audience-heading"
     >
       <div className="section-container">
-        <SectionTitle
-          title="קהלי יעד"
-          subtitle="מתאים לכל מי שרוצה לשפר את התזונה שלו בלי קשר לגיל, מטרה או סגנון חיים"
-        />
+        <div data-reveal>
+          <SectionTitle
+            title="קהלי יעד"
+            subtitle="מתאים לכל מי שרוצה לשפר את התזונה שלו בלי קשר לגיל, מטרה או סגנון חיים"
+          />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {AUDIENCE_DATA.map((item) => (
-            <Card
-              key={item.title}
-              className="flex flex-col items-center text-center group"
-            >
+          {AUDIENCE_DATA.map((item, i) => (
+            <div key={item.title} data-reveal data-delay={String(i * 90)}>
+              <Card
+                className="flex flex-col items-center text-center group"
+              >
               <div
                 className={`${item.color} w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300`}
                 aria-hidden="true"
@@ -71,6 +73,7 @@ export default function TargetAudience() {
                 {item.description}
               </p>
             </Card>
+            </div>
           ))}
         </div>
       </div>

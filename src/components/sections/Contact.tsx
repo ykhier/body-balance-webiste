@@ -83,10 +83,12 @@ export default function Contact() {
       aria-labelledby="contact-heading"
     >
       <div className="section-container max-w-3xl">
-        <SectionTitle
-          title="צרו קשר"
-          subtitle="יש לכן שאלה? רוצים להתחיל? דברו איתי ישירות 💌"
-        />
+        <div data-reveal>
+          <SectionTitle
+            title="צרו קשר"
+            subtitle="יש לכן שאלה? רוצים להתחיל? דברו איתי ישירות 💌"
+          />
+        </div>
 
         {/* Success state */}
         {status === "success" ? (
@@ -114,6 +116,9 @@ export default function Contact() {
           <form
             onSubmit={handleSubmit}
             noValidate
+            data-reveal
+            data-from="scale"
+            data-delay="80"
             className="bg-white dark:bg-gray-800 rounded-3xl shadow-card border border-gray-100 dark:border-gray-700 p-8"
             aria-label="טופס יצירת קשר"
           >

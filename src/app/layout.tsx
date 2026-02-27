@@ -4,6 +4,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import ScrollAnimations from "@/components/ui/ScrollAnimations";
 
 export const metadata: Metadata = {
   title: "בראאה חיר | ליווי תזונאי אישי",
@@ -40,6 +41,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
+        <ScrollAnimations />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

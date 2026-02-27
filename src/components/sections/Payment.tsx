@@ -28,12 +28,14 @@ export default function Payment() {
       aria-labelledby="payment-heading"
     >
       <div className="section-container max-w-xl mx-auto">
-        <SectionTitle
-          title="תשלום"
-          subtitle="השקעה בבריאות שלך - פשוט, מהיר ובטוח"
-        />
+        <div data-reveal>
+          <SectionTitle
+            title="תשלום"
+            subtitle="השקעה בבריאות שלך - פשוט, מהיר ובטוח"
+          />
+        </div>
 
-        <div className="flex gap-4 mb-6 justify-center">
+        <div data-reveal data-delay="80" className="flex gap-4 mb-6 justify-center">
           <button
             className={`flex-1 py-3 rounded-2xl font-bold border-2 transition-all ${plan === "single" ? "bg-rose-500 text-white border-rose-500 shadow" : "bg-white dark:bg-gray-800 text-rose-500 border-rose-200 dark:border-gray-600 hover:border-rose-400"}`}
             onClick={() => setPlan("single")}
@@ -55,7 +57,7 @@ export default function Payment() {
           </button>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-card mb-6">
+        <div data-reveal data-delay="180" className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-card mb-6">
           <p className="font-bold text-gray-700 dark:text-gray-200 mb-4">
             אמצעי תשלום
           </p>
@@ -82,7 +84,7 @@ export default function Payment() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-card mb-6">
+        <div data-reveal data-delay="260" className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-card mb-6">
           <p className="font-bold text-gray-700 dark:text-gray-200 mb-4 text-lg">
             סיכום הזמנה
           </p>
@@ -103,12 +105,14 @@ export default function Payment() {
           </div>
         </div>
 
+        <div data-reveal data-delay="320">
         <button
           onClick={() => alert("מעביר לדף התשלום...")}
           className="w-full btn-primary text-lg py-4"
         >
           לתשלום מאובטח →
         </button>
+        </div>
       </div>
     </section>
   );

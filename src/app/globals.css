@@ -11,6 +11,12 @@
   --color-primary: #4E8B6E;
   --color-secondary: #5ea07c;
   --color-light: #edf4f0;
+
+  /* Animation system */
+  --ease-wellness: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-reveal:    0.85s;
+  --dur-fast:      0.35s;
+  --dur-hero:      0.75s;
 }
 
 /* =============================================
@@ -171,3 +177,202 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #edf4f0; }
 ::-webkit-scrollbar-thumb { background: #7ab89b; border-radius: 10px; }
+
+/* =============================================
+   SCROLL REVEAL SYSTEM
+   Elements with [data-reveal] start invisible.
+   ScrollAnimations.tsx (IntersectionObserver) adds
+   .is-visible when element enters viewport.
+   data-delay="NNN" → per-element stagger (applied inline by JS).
+   data-from="left|right|scale" → directional variant.
+   ============================================= */
+
+/* ── Base: fade + rise ── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(42px);
+  transition:
+    opacity   0.9s var(--ease-wellness),
+    transform 0.9s var(--ease-wellness);
+  will-change: opacity, transform;
+}
+
+/* ── Directional variants ── */
+[data-reveal][data-from="left"] {
+  transform: translateX(-48px) translateY(12px);
+}
+[data-reveal][data-from="right"] {
+  transform: translateX(48px) translateY(12px);
+}
+[data-reveal][data-from="scale"] {
+  transform: scale(0.88) translateY(18px);
+}
+
+/* ── Visible state — same for all variants ── */
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* ── Stagger siblings inside [data-stagger] ── */
+[data-reveal][data-stagger] > * {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity   0.75s var(--ease-wellness),
+    transform 0.75s var(--ease-wellness);
+  will-change: opacity, transform;
+}
+[data-reveal][data-stagger].is-visible > * { opacity: 1; transform: translateY(0); }
+[data-reveal][data-stagger].is-visible > *:nth-child(1) { transition-delay:   0ms; }
+[data-reveal][data-stagger].is-visible > *:nth-child(2) { transition-delay: 100ms; }
+[data-reveal][data-stagger].is-visible > *:nth-child(3) { transition-delay: 200ms; }
+[data-reveal][data-stagger].is-visible > *:nth-child(4) { transition-delay: 300ms; }
+[data-reveal][data-stagger].is-visible > *:nth-child(5) { transition-delay: 400ms; }
+[data-reveal][data-stagger].is-visible > *:nth-child(6) { transition-delay: 500ms; }
+
+/* =============================================
+   NAVBAR — COMPACT / GLASS ON SCROLL
+   .is-scrolled added by ScrollAnimations.tsx
+   after 60px of scroll.
+   ============================================= */
+
+header {
+  transition:
+    height          0.35s var(--ease-wellness),
+    padding-top     0.35s var(--ease-wellness),
+    padding-bottom  0.35s var(--ease-wellness),
+    backdrop-filter 0.35s ease,
+    box-shadow      0.35s ease;
+}
+
+/* Logo / brand text inside header — smooth compact scale */
+header .navbar-logo {
+  transition: transform 0.35s var(--ease-wellness);
+  display: inline-block;
+  transform-origin: right center; /* RTL: scale from right edge */
+}
+header.is-scrolled .navbar-logo {
+  transform: scale(0.88);
+}
+
+/* Nav links — refined hover with underline slide */
+header nav a {
+  position: relative;
+}
+header nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: 0;          /* RTL: starts from right */
+  width: 0;
+  height: 2px;
+  background: #f43f5e;
+  border-radius: 2px;
+  transition: width 0.25s var(--ease-wellness);
+}
+header nav a:hover::after { width: 100%; }
+
+/* =============================================
+   HERO — ENTRANCE ANIMATIONS (above-fold, CSS only)
+   Fires on page load, not IntersectionObserver.
+   ============================================= */
+
+/* Keyframes */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes hero-rise-image {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+@keyframes hero-badge-in {
+  from { opacity: 0; transform: translateY(-8px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* Applied classes — each with a staggered delay */
+.hero-anim-badge  { animation: hero-badge-in  0.6s  var(--ease-wellness) 0.05s  both; }
+.hero-anim-title  { animation: hero-rise       0.75s var(--ease-wellness) 0.18s  both; }
+.hero-anim-text   { animation: hero-rise       0.75s var(--ease-wellness) 0.32s  both; }
+.hero-anim-cta    { animation: hero-rise       0.7s  var(--ease-wellness) 0.46s  both; }
+.hero-anim-social { animation: hero-rise       0.7s  var(--ease-wellness) 0.58s  both; }
+.hero-anim-stats  { animation: hero-rise       0.7s  var(--ease-wellness) 0.72s  both; }
+.hero-anim-image  { animation: hero-rise-image 0.85s var(--ease-wellness) 0.12s  both; }
+
+/* Very soft parallax glow blob in hero — purely decorative */
+.hero-parallax-blob {
+  will-change: transform;
+  /* JS shifts translateY via inline style; CSS sets the base */
+  transition: none; /* let JS handle this */
+}
+
+/* =============================================
+   BUTTON MICRO-INTERACTIONS
+   Calm hover: slight lift + gentle shadow boost.
+   ============================================= */
+
+.btn-wellness {
+  transition:
+    transform    0.25s var(--ease-wellness),
+    box-shadow   0.25s var(--ease-wellness),
+    background   0.25s ease,
+    border-color 0.25s ease;
+}
+.btn-wellness:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.22);
+}
+.btn-wellness:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Outline/social buttons */
+.btn-wellness-outline {
+  transition:
+    transform    0.25s var(--ease-wellness),
+    background   0.25s ease,
+    box-shadow   0.25s ease;
+}
+.btn-wellness-outline:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* =============================================
+   ACCESSIBILITY — prefers-reduced-motion
+   If user has reduced-motion enabled:
+   - Disable all transforms
+   - Keep opacity fades (they're still meaningful)
+   - Remove parallax entirely
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transform: none !important;
+    transition: opacity 0.4s ease !important;
+  }
+  [data-reveal][data-stagger] > * {
+    transform: none !important;
+    transition: opacity 0.4s ease !important;
+  }
+  .hero-anim-badge,
+  .hero-anim-title,
+  .hero-anim-text,
+  .hero-anim-cta,
+  .hero-anim-social,
+  .hero-anim-stats,
+  .hero-anim-image {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-parallax-blob {
+    transform: none !important;
+  }
+  .btn-wellness:hover,
+  .btn-wellness-outline:hover {
+    transform: none !important;
+  }
+  header .navbar-logo { transform: none !important; }
+}
