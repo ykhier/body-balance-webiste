@@ -40,7 +40,14 @@ export default function Navbar() {
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      // Fire 'reveal-check' at 4 intervals to guarantee ScrollAnimations
+      // reveals every element regardless of smooth-scroll speed/duration.
+      [100, 350, 700, 1200].forEach((ms) =>
+        setTimeout(() => window.dispatchEvent(new CustomEvent("reveal-check")), ms)
+      );
+    }
   };
 
   return (

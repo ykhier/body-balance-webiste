@@ -56,9 +56,9 @@ export default function TargetAudience() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {AUDIENCE_DATA.map((item, i) => (
-            <div key={item.title} data-reveal data-delay={String(i * 90)}>
+            <div key={item.title} data-reveal data-delay={String(i * 90)} className="h-full">
               <Card
-                className="flex flex-col items-center text-center group"
+                className="flex flex-col items-center text-center group h-full"
               >
               <div
                 className={`${item.color} w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300`}

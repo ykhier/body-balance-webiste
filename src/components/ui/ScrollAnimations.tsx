@@ -1,16 +1,19 @@
 // src/components/ui/ScrollAnimations.tsx
 // ─────────────────────────────────────────────────────────────────
-// Lightweight scroll animation engine — no heavy libraries.
+// Bidirectional scroll animation engine.
 //
-// What this does:
-//  1. IntersectionObserver: watches [data-reveal] elements,
-//     applies data-delay as transitionDelay, then adds .is-visible.
-//     Fires once per element (unobserved after trigger).
-//  2. Scroll + rAF: moves [data-parallax] blobs very slightly
-//     slower than scroll (max ~15px shift — extremely subtle).
-//  3. Navbar: adds .is-scrolled to <header> after 60px scroll.
+// KEY RULE:
+//   enter viewport  → add    .is-visible  (CSS transition plays)
+//   leave viewport  → remove .is-visible  (instant snap, no flash)
 //
-// Works with RTL. Respects prefers-reduced-motion.
+// This means animations replay on EVERY scroll cycle, in both
+// directions — no "fire once" logic anywhere.
+//
+// Edge-cases handled:
+//   • Nav-jump (smooth-scroll skips sections) → 'reveal-check' event
+//     + scroll-debounce reveals in-viewport elements and silently
+//     shows jumped-past ones so they don't flash-in above the fold.
+//   • prefers-reduced-motion   → all transitions disabled.
 // ─────────────────────────────────────────────────────────────────
 "use client";
 
@@ -18,88 +21,115 @@ import { useEffect } from "react";
 
 export default function ScrollAnimations() {
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // ── 1. Reveal on scroll (IntersectionObserver) ──────────────
-    // Threshold 0.08 + rootMargin -50px: fires when ~1/12 of the
-    // element has entered the viewport and is clearly in view.
-    const revealObserver = new IntersectionObserver(
+    // ── Reveal ────────────────────────────────────────────────────
+    // instant=true → used for elements above the viewport after a
+    // nav-jump; we show them without animation so they don't slide
+    // in from off-screen when the user is already past them.
+    const revealEl = (el: HTMLElement, instant = false) => {
+      if (el.classList.contains("is-visible")) return;
+      if (instant || reduced) {
+        el.style.transition = "none";
+        el.style.transitionDelay = "0ms";
+      } else {
+        const d = parseInt(el.dataset.delay ?? "0", 10);
+        if (d > 0) el.style.transitionDelay = `${d}ms`;
+      }
+      el.classList.add("is-visible");
+    };
+
+    // ── Reset ─────────────────────────────────────────────────────
+    // Removes is-visible so the element can animate again on re-entry.
+    // We must disable the CSS transition BEFORE removing the class,
+    // otherwise the element visibly fades/slides back to hidden.
+    // Double-rAF ensures the browser paints the snapped hidden state
+    // before we re-enable transitions for the next reveal cycle.
+    const resetEl = (el: HTMLElement) => {
+      el.style.transition = "none";        // snap immediately — no reverse anim
+      el.style.transitionDelay = "0ms";
+      el.classList.remove("is-visible");
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          el.style.transition = "";        // re-enable for next reveal
+          el.style.transitionDelay = "";
+        });
+      });
+    };
+
+    // ── 1. IntersectionObserver (bidirectional) ───────────────────
+    // threshold:0  → fires the moment any pixel enters OR leaves.
+    // On exit we ALWAYS reset — regardless of which direction the
+    // element left — so it will animate again on the next entry.
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-
-            // Apply per-element stagger delay from data-delay attribute
-            const delay = parseInt(el.dataset.delay ?? "0", 10);
-            if (delay > 0) {
-              el.style.transitionDelay = `${delay}ms`;
-            }
-
-            el.classList.add("is-visible");
-            revealObserver.unobserve(el); // fire only once
+            revealEl(entry.target as HTMLElement);
+          } else {
+            resetEl(entry.target as HTMLElement);
           }
         });
       },
-      {
-        threshold: 0.08,
-        // Negative bottom margin: element must scroll 50px past the
-        // viewport bottom edge before triggering — ensures animation
-        // is clearly visible as it enters, not already fully in view.
-        rootMargin: "0px 0px -50px 0px",
-      }
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" }
     );
 
-    document
-      .querySelectorAll("[data-reveal]")
-      .forEach((el) => revealObserver.observe(el));
+    document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
 
-    // ── 2. Parallax blob ─────────────────────────────────────────
+    // ── 2. Nav-jump fallback ──────────────────────────────────────
+    // After a programmatic smooth-scroll the observer can miss fast-
+    // moving elements. Scan the full DOM: instant-reveal anything
+    // already above the viewport; normally animate in-viewport items.
+    const revealInViewport = () => {
+      document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+        const { top, bottom } = el.getBoundingClientRect();
+        if (bottom <= 0)                        revealEl(el, true);   // above fold
+        else if (top < window.innerHeight * 0.96) revealEl(el, false); // in view
+        // below fold → observer will handle it naturally
+      });
+    };
+
+    window.addEventListener("scrollend", revealInViewport, { passive: true });
+    let debounce: ReturnType<typeof setTimeout>;
+    const onScrollDebounce = () => { clearTimeout(debounce); debounce = setTimeout(revealInViewport, 150); };
+    window.addEventListener("scroll", onScrollDebounce, { passive: true });
+    // Navbar dispatches this at 100/350/700/1200 ms after a nav click
+    window.addEventListener("reveal-check", revealInViewport);
+
+    // ── 3. Parallax blob ─────────────────────────────────────────
     const parallaxEl = document.querySelector<HTMLElement>("[data-parallax]");
     let ticking = false;
-
     const onScroll = () => {
-      if (prefersReducedMotion || !parallaxEl) return;
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const shift = window.scrollY * 0.06;
-          parallaxEl.style.transform = `translateY(${shift}px)`;
-          ticking = false;
-        });
-        ticking = true;
-      }
+      if (reduced || !parallaxEl || ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        parallaxEl.style.transform = `translateY(${window.scrollY * 0.06}px)`;
+        ticking = false;
+      });
     };
+    if (!reduced && parallaxEl) window.addEventListener("scroll", onScroll, { passive: true });
 
-    if (!prefersReducedMotion && parallaxEl) {
-      window.addEventListener("scroll", onScroll, { passive: true });
-    }
-
-    // ── 3. Navbar compact state ──────────────────────────────────
+    // ── 4. Navbar compact state ───────────────────────────────────
     const headerEl = document.querySelector<HTMLElement>("header");
-    let headerTicking = false;
-
+    let hTick = false;
     const onHeaderScroll = () => {
-      if (!headerEl) return;
-      if (!headerTicking) {
-        requestAnimationFrame(() => {
-          if (window.scrollY > 60) {
-            headerEl.classList.add("is-scrolled");
-          } else {
-            headerEl.classList.remove("is-scrolled");
-          }
-          headerTicking = false;
-        });
-        headerTicking = true;
-      }
+      if (!headerEl || hTick) return;
+      hTick = true;
+      requestAnimationFrame(() => {
+        headerEl.classList.toggle("is-scrolled", window.scrollY > 60);
+        hTick = false;
+      });
     };
-
     window.addEventListener("scroll", onHeaderScroll, { passive: true });
 
     return () => {
-      revealObserver.disconnect();
+      observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("scroll", onHeaderScroll);
+      window.removeEventListener("scroll", onScrollDebounce);
+      window.removeEventListener("scrollend", revealInViewport);
+      window.removeEventListener("reveal-check", revealInViewport);
+      clearTimeout(debounce);
     };
   }, []);
 
