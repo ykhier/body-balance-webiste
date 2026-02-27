@@ -4,7 +4,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import BodyBalanceLogo from "@/components/ui/BodyBalanceLogo";
 
 const NAV_LINKS = [
   { label: "ראשי", href: "#hero" },
@@ -61,10 +60,13 @@ export default function Navbar() {
             e.preventDefault();
             handleNavClick("#hero");
           }}
-          className="hover:opacity-85 transition-opacity duration-200"
-          aria-label="Body Balance - עמוד הבית"
+          className="flex items-center gap-1.5 hover:opacity-80 transition"
         >
-          <BodyBalanceLogo size={34} animated />
+          <span className="text-2xl">🌿</span>
+          <span className="font-extrabold text-xl tracking-wide">
+            <span className="text-rose-500">BODY</span>
+            <span className="text-gray-700 dark:text-gray-100"> BALANCE</span>
+          </span>
         </a>
 
         {/* Desktop links */}
@@ -80,11 +82,7 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="relative text-gray-600 dark:text-gray-300 font-medium text-sm
-                         after:absolute after:bottom-[-2px] after:right-0 after:h-[2px]
-                         after:w-0 after:bg-rose-500 after:rounded-full after:transition-all
-                         after:duration-300 hover:after:w-full hover:text-rose-500
-                         transition-colors duration-200"
+              className="text-gray-600 dark:text-gray-300 font-medium hover:text-rose-500 transition-colors text-sm"
             >
               {link.label}
             </a>
