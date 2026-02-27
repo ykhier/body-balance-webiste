@@ -77,17 +77,19 @@ export default function Services() {
         <div
           data-reveal
           data-delay="100"
-          className="mt-12 bg-gradient-to-l from-rose-500 to-rose-400 rounded-3xl p-8 text-center text-white"
+          className="mt-10 sm:mt-12 bg-gradient-to-l from-rose-500 to-rose-400 rounded-3xl p-5 sm:p-8 text-center text-white"
         >
-          <p className="text-xl font-extrabold mb-2">מוכנה להתחיל את המסע?</p>
-          <p className="text-rose-100 text-sm mb-6">
+          <p className="text-lg sm:text-xl font-extrabold mb-2">
+            מוכנה להתחיל את המסע?
+          </p>
+          <p className="text-rose-100 text-sm mb-5 sm:mb-6">
             שלחי הודעה בוואטסאפ ונקבע שיחת ייעוץ ראשונית בחינם לגמרי
           </p>
           <a
             href="https://wa.me/972542576613"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-white text-rose-500 font-bold px-8 py-3 rounded-full hover:bg-rose-50 transition shadow"
+            className="inline-flex items-center gap-2 bg-white text-rose-500 font-bold px-6 sm:px-8 py-3 rounded-full hover:bg-rose-50 transition shadow text-sm sm:text-base"
           >
             <svg viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
               <circle cx="24" cy="24" r="24" fill="#25D366" />

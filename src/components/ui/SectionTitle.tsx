@@ -22,12 +22,12 @@ export default function SectionTitle({
           center ? "mx-auto" : ""
         }`}
       />
-      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 leading-tight">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white leading-tight">
         {title}
       </h2>
       {subtitle && (
         <p
-          className={`mt-3 text-gray-500 text-base md:text-lg max-w-xl leading-relaxed ${
+          className={`mt-3 text-gray-500 dark:text-gray-400 text-base md:text-lg max-w-xl leading-relaxed ${
             center ? "mx-auto" : ""
           }`}
         >

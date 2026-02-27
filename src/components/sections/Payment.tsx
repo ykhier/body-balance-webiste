@@ -38,18 +38,18 @@ export default function Payment() {
         <div
           data-reveal
           data-delay="80"
-          className="flex gap-4 mb-6 justify-center"
+          className="grid grid-cols-2 gap-3 mb-6"
         >
           <button
-            className={`flex-1 py-3 rounded-2xl font-bold border-2 transition-all ${plan === "single" ? "bg-rose-500 text-white border-rose-500 shadow" : "bg-white dark:bg-gray-800 text-rose-500 border-rose-200 dark:border-gray-600 hover:border-rose-400"}`}
+            className={`py-3 px-2 rounded-2xl font-bold border-2 transition-all text-sm sm:text-base ${plan === "single" ? "bg-rose-500 text-white border-rose-500 shadow" : "bg-white dark:bg-gray-800 text-rose-500 border-rose-200 dark:border-gray-600 hover:border-rose-400"}`}
             onClick={() => setPlan("single")}
           >
             תשלום חד-פעמי
             <br />
-            <span className="text-xl">₪490</span>
+            <span className="text-lg sm:text-xl">₪490</span>
           </button>
           <button
-            className={`flex-1 py-3 rounded-2xl font-bold border-2 transition-all ${plan === "installments" ? "bg-rose-500 text-white border-rose-500 shadow" : "bg-white dark:bg-gray-800 text-rose-500 border-rose-200 dark:border-gray-600 hover:border-rose-400"}`}
+            className={`py-3 px-2 rounded-2xl font-bold border-2 transition-all text-sm sm:text-base ${plan === "installments" ? "bg-rose-500 text-white border-rose-500 shadow" : "bg-white dark:bg-gray-800 text-rose-500 border-rose-200 dark:border-gray-600 hover:border-rose-400"}`}
             onClick={() => {
               setPlan("installments");
               setPaymentMethod("credit");
@@ -57,23 +57,23 @@ export default function Payment() {
           >
             2 תשלומים
             <br />
-            <span className="text-xl">₪260 × 2</span>
+            <span className="text-lg sm:text-xl">₪260 × 2</span>
           </button>
         </div>
 
         <div
           data-reveal
           data-delay="180"
-          className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-card mb-6"
+          className="bg-white dark:bg-gray-800 rounded-3xl p-4 sm:p-6 shadow-card mb-6"
         >
-          <p className="font-bold text-gray-700 dark:text-gray-200 mb-4">
+          <p className="font-bold text-gray-700 dark:text-gray-200 mb-3">
             אמצעי תשלום
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             {availableMethods.map((m) => (
               <label
                 key={m.id}
-                className={`flex-1 flex items-center gap-3 p-4 rounded-2xl border-2 cursor-pointer transition-all ${paymentMethod === m.id ? "border-rose-400 bg-rose-50 dark:bg-rose-900/20" : "border-gray-200 dark:border-gray-600 hover:border-rose-200"}`}
+                className={`flex-1 flex items-center gap-2 p-3 sm:p-4 rounded-2xl border-2 cursor-pointer transition-all ${paymentMethod === m.id ? "border-rose-400 bg-rose-50 dark:bg-rose-900/20" : "border-gray-200 dark:border-gray-600 hover:border-rose-200"}`}
               >
                 <input
                   type="radio"
@@ -81,10 +81,10 @@ export default function Payment() {
                   value={m.id}
                   checked={paymentMethod === m.id}
                   onChange={() => setPaymentMethod(m.id)}
-                  className="accent-rose-500"
+                  className="accent-rose-500 shrink-0"
                 />
-                <span className="text-2xl">{m.icon}</span>
-                <span className="font-semibold text-gray-700 dark:text-gray-200">
+                <span className="text-xl sm:text-2xl">{m.icon}</span>
+                <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm sm:text-base">
                   {m.label}
                 </span>
               </label>
@@ -95,7 +95,7 @@ export default function Payment() {
         <div
           data-reveal
           data-delay="260"
-          className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-card mb-6"
+          className="bg-white dark:bg-gray-800 rounded-3xl p-4 sm:p-6 shadow-card mb-6"
         >
           <p className="font-bold text-gray-700 dark:text-gray-200 mb-4 text-lg">
             סיכום הזמנה

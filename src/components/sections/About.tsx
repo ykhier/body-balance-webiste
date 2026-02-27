@@ -26,7 +26,7 @@ export default function About() {
             data-from="right"
             className="flex-shrink-0 w-full md:w-80"
           >
-            <div className="relative bg-gradient-to-br from-rose-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 rounded-4xl p-8 shadow-card">
+            <div className="relative bg-gradient-to-br from-rose-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 rounded-4xl p-5 sm:p-8 shadow-card">
               <span
                 className="text-rose-200 font-extrabold text-8xl leading-none absolute top-4 right-6 select-none"
                 aria-hidden="true"
@@ -42,7 +42,7 @@ export default function About() {
                 {HIGHLIGHTS.map((h) => (
                   <div
                     key={h.text}
-                    className="flex items-center gap-2 bg-white dark:bg-gray-600 rounded-xl px-3 py-2 shadow-sm"
+                    className="flex items-center gap-2 bg-white dark:bg-gray-700 rounded-xl px-3 py-2 shadow-sm"
                   >
                     <span className="text-lg">{h.icon}</span>
                     <span className="text-xs font-semibold text-gray-700 dark:text-gray-100">
