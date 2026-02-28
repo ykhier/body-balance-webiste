@@ -2,7 +2,8 @@
 
 import { NextResponse } from "next/server";
 import { SESSION_COOKIE } from "@/lib/auth";
-
+// Clears the session cookie to log out the admin user
+// possible to use it in the future
 export async function POST() {
   const res = NextResponse.json({ success: true });
   res.cookies.set(SESSION_COOKIE, "", {

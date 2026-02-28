@@ -3,6 +3,7 @@
 "use client";
 
 import React from "react";
+import NavLink, { NavLinks } from "@/components/ui/NavLink";
 
 const SOCIAL_LINKS = [
   {
@@ -74,32 +75,7 @@ export default function Footer() {
           <div>
             <p className="font-bold text-white mb-4">ניווט מהיר</p>
             <nav className="flex flex-col gap-2" aria-label="ניווט תחתית">
-              {["אודות", "קהלי יעד", "שירותים", "תשלום", "צרו קשר"].map(
-                (item) => {
-                  const id = {
-                    אודות: "about",
-                    "קהלי יעד": "audience",
-                    שירותים: "services",
-                    תשלום: "payment",
-                    "צרו קשר": "contact",
-                  }[item];
-                  return (
-                    <a
-                      key={item}
-                      href={`#${id}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        document
-                          .querySelector(`#${id}`)
-                          ?.scrollIntoView({ behavior: "smooth" });
-                      }}
-                      className="text-gray-400 hover:text-rose-400 transition-colors text-sm"
-                    >
-                      {item}
-                    </a>
-                  );
-                },
-              )}
+              <NavLinks footer skip="#hero" />
             </nav>
           </div>
 

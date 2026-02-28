@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
         const toEmail = process.env.CONTACT_TO_EMAIL || "braahkhier@gmail.com";
         await transporter.sendMail({
-          from: `"אתר Body Balance" <${process.env.SMTP_USER}>`,
+          from: `"Body Balance אתר " <${process.env.SMTP_USER}>`,
           to: toEmail,
           replyTo: data.email,
           subject: `פנייה חדשה מהאתר: ${data.name}`,

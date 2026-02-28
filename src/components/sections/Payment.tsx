@@ -1,129 +1,82 @@
-﻿// src/components/sections/Payment.tsx
-"use client";
+﻿"use client";
 
-import React, { useState } from "react";
+import React from "react";
 import SectionTitle from "@/components/ui/SectionTitle";
+import BitIcon from "../ui/BitIcon";
 
-const PAYMENT_METHODS = [
-  { id: "bit", label: "ביט", icon: "📱" },
-  { id: "credit", label: "כרטיס אשראי", icon: "💳" },
+import VIcon from "@/components/ui/vIcon";
+
+const AMOUNT = 350;
+
+const INCLUDES = [
+  "תוכנית תזונה אישית מותאמת",
+  "ליווי שוטף בוואטסאפ",
+  "תמיכה מלאה לאורך התהליך",
+  "תפריט גמיש ומותאם",
 ];
 
 export default function Payment() {
-  const [plan, setPlan] = useState<"single" | "installments">("single");
-  const [paymentMethod, setPaymentMethod] = useState("bit");
-
-  const price = plan === "single" ? 490 : 260;
-  const total = plan === "single" ? 490 : 520;
-
-  const availableMethods =
-    plan === "single"
-      ? PAYMENT_METHODS
-      : PAYMENT_METHODS.filter((m) => m.id !== "bit");
-
   return (
     <section
       id="payment"
       className="section-padding bg-gradient-to-b from-rose-50 to-white dark:from-gray-900 dark:to-gray-900"
-      aria-labelledby="payment-heading"
     >
-      <div className="section-container max-w-xl mx-auto">
-        <div data-reveal>
-          <SectionTitle
-            title="תשלום"
-            subtitle="השקעה בבריאות שלך - פשוט, מהיר ובטוח"
-          />
+      <div className="section-container max-w-lg mx-auto">
+        {/* Header */}
+        <div data-reveal className="text-center mb-10">
+          <SectionTitle title="תשלום" subtitle="מוכנה להתחיל?"></SectionTitle>
         </div>
 
+        {/* Pricing Card */}
         <div
           data-reveal
-          data-delay="80"
-          className="grid grid-cols-2 gap-3 mb-6"
+          data-delay="100"
+          className="relative rounded-3xl overflow-hidden shadow-card mb-6"
         >
-          <button
-            className={`py-3 px-2 rounded-2xl font-bold border-2 transition-all text-sm sm:text-base ${plan === "single" ? "bg-rose-500 text-white border-rose-500 shadow" : "bg-white dark:bg-gray-800 text-rose-500 border-rose-200 dark:border-gray-600 hover:border-rose-400"}`}
-            onClick={() => setPlan("single")}
-          >
-            תשלום חד-פעמי
-            <br />
-            <span className="text-lg sm:text-xl">₪490</span>
-          </button>
-          <button
-            className={`py-3 px-2 rounded-2xl font-bold border-2 transition-all text-sm sm:text-base ${plan === "installments" ? "bg-rose-500 text-white border-rose-500 shadow" : "bg-white dark:bg-gray-800 text-rose-500 border-rose-200 dark:border-gray-600 hover:border-rose-400"}`}
-            onClick={() => {
-              setPlan("installments");
-              setPaymentMethod("credit");
-            }}
-          >
-            2 תשלומים
-            <br />
-            <span className="text-lg sm:text-xl">₪260 × 2</span>
-          </button>
-        </div>
+          {/* Green top band */}
+          <div className="bg-gradient-to-l from-rose-400 to-rose-600 px-8 pt-8 pb-14 text-center">
+            <p className="text-rose-100 text-sm font-medium mb-2">
+              תוכנית תזונה אישית
+            </p>
+            <div className="flex items-end justify-center gap-1">
+              <span className="text-white text-6xl font-black leading-none">
+                ₪{AMOUNT}
+              </span>
+              <span className="text-white text-xl font-bold mb-2 opacity-80">
+                / חודש
+              </span>
+            </div>
+            <p className="text-rose-200 text-xs mt-2">לחודש · ללא התחייבות</p>
+          </div>
 
-        <div
-          data-reveal
-          data-delay="180"
-          className="bg-white dark:bg-gray-800 rounded-3xl p-4 sm:p-6 shadow-card mb-6"
-        >
-          <p className="font-bold text-gray-700 dark:text-gray-200 mb-3">
-            אמצעי תשלום
-          </p>
-          <div className="flex gap-3">
-            {availableMethods.map((m) => (
-              <label
-                key={m.id}
-                className={`flex-1 flex items-center gap-2 p-3 sm:p-4 rounded-2xl border-2 cursor-pointer transition-all ${paymentMethod === m.id ? "border-rose-400 bg-rose-50 dark:bg-rose-900/20" : "border-gray-200 dark:border-gray-600 hover:border-rose-200"}`}
-              >
-                <input
-                  type="radio"
-                  name="payment"
-                  value={m.id}
-                  checked={paymentMethod === m.id}
-                  onChange={() => setPaymentMethod(m.id)}
-                  className="accent-rose-500 shrink-0"
-                />
-                <span className="text-xl sm:text-2xl">{m.icon}</span>
-                <span className="font-semibold text-gray-700 dark:text-gray-200 text-sm sm:text-base">
-                  {m.label}
-                </span>
-              </label>
-            ))}
+          {/* Bit badge overlapping */}
+          <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[185px] z-10">
+            <div className="bg-white dark:bg-gray-900 rounded-full p-1.5 shadow-lg">
+              <div className="bg-rose-500 rounded-full w-14 h-14 flex items-center justify-center">
+                <BitIcon size={36} aria-label="ביט" />
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div
-          data-reveal
-          data-delay="260"
-          className="bg-white dark:bg-gray-800 rounded-3xl p-4 sm:p-6 shadow-card mb-6"
-        >
-          <p className="font-bold text-gray-700 dark:text-gray-200 mb-4 text-lg">
-            סיכום הזמנה
-          </p>
-          <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 mb-2">
-            <span>תוכנית תזונה אישית</span>
-            <span>
-              ₪{price}
-              {plan === "installments" ? " × 2" : ""}
-            </span>
-          </div>
-          <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
-            <span>ליווי שוטף + תמיכה</span>
-            <span>כלול</span>
-          </div>
-          <div className="border-t border-gray-100 dark:border-gray-700 pt-4 flex justify-between font-extrabold text-gray-800 dark:text-white text-lg">
-            <span>סה"כ</span>
-            <span className="text-rose-500">₪{total}</span>
-          </div>
-        </div>
+          {/* White bottom */}
+          <div className="bg-white dark:bg-gray-800 px-8 pt-14 pb-8">
+            <ul className="space-y-3 mb-6">
+              {INCLUDES.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300"
+                >
+                  <VIcon name="check" className="w-5 h-5 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
 
-        <div data-reveal data-delay="320">
-          <button
-            onClick={() => alert("מעביר לדף התשלום...")}
-            className="w-full btn-primary text-lg py-4"
-          >
-            לתשלום מאובטח →
-          </button>
+            <button className="w-full btn-primary text-white font-extrabold text-lg py-4 rounded-2xl shadow-md flex items-center justify-center gap-3 cursor-pointer ">
+              <BitIcon size={26} />
+              שלמי עכשיו בביט
+            </button>
+          </div>
         </div>
       </div>
     </section>

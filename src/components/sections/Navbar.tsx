@@ -4,15 +4,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-
-const NAV_LINKS = [
-  { label: "ראשי", href: "#hero" },
-  { label: "אודות", href: "#about" },
-  { label: "קהלי יעד", href: "#audience" },
-  { label: "שירותים", href: "#services" },
-  { label: "תשלום", href: "#payment" },
-  { label: "צרו קשר", href: "#contact" },
-];
+import { NavLinks } from "@/components/ui/NavLink";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -84,19 +76,7 @@ export default function Navbar() {
           className="hidden md:flex items-center gap-6"
           aria-label="ניווט ראשי"
         >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(link.href);
-              }}
-              className="text-gray-600 dark:text-gray-300 font-medium hover:text-rose-500 transition-colors text-sm"
-            >
-              {link.label}
-            </a>
-          ))}
+          <NavLinks onClick={handleNavClick} />
         </nav>
 
         {/* Actions: theme toggle + mobile hamburger */}
@@ -128,19 +108,7 @@ export default function Navbar() {
           className="md:hidden bg-white dark:bg-gray-900 backdrop-blur border-t border-rose-100 dark:border-gray-700 px-6 py-4 flex flex-col gap-4"
           aria-label="תפריט נייד"
         >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(link.href);
-              }}
-              className="text-gray-700 dark:text-gray-200 font-semibold hover:text-rose-500 transition-colors py-1"
-            >
-              {link.label}
-            </a>
-          ))}
+          <NavLinks onClick={handleNavClick} mobile />
         </nav>
       )}
     </header>

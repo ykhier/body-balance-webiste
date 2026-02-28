@@ -3,6 +3,7 @@
 
 import React from "react";
 import SectionTitle from "@/components/ui/SectionTitle";
+import Card from "@/components/ui/Card";
 
 const SERVICES = [
   {
@@ -16,7 +17,7 @@ const SERVICES = [
     icon: "📋",
     title: "תוכנית תזונה מסודרת",
     description:
-      "תפריט שבועי מפורט ומותאם אישית  ארוחות, כמויות וזמנים. ברור, נוח לביצוע ותואם את העדפותיך.",
+      "תפריט  מפורט ומותאם אישית  ארוחות, כמויות וזמנים. ברור, נוח לביצוע ותואם את העדפותיך.",
     gradient: "from-orange-50 to-orange-100",
   },
   {
@@ -51,11 +52,11 @@ export default function Services() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {SERVICES.map((service, i) => (
-            <div
+            <Card
               key={service.title}
               data-reveal
               data-delay={String(i * 120)}
-              className={`bg-gradient-to-br ${service.gradient} dark:from-gray-800 dark:to-gray-700 rounded-3xl p-6 border border-white dark:border-gray-600 flex gap-5 items-start shadow-card hover:shadow-soft hover:-translate-y-1 transition-all duration-300 group`}
+              className={`bg-gradient-to-br ${service.gradient} dark:from-gray-800 dark:to-gray-700 border border-white dark:border-gray-600 flex gap-5 items-start group`}
             >
               <div
                 className="flex-shrink-0 w-14 h-14 bg-white dark:bg-gray-600 rounded-2xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-105 transition-transform duration-300"
@@ -71,7 +72,7 @@ export default function Services() {
                   {service.description}
                 </p>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
         <div

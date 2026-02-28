@@ -86,7 +86,7 @@ export default function Contact() {
         <div data-reveal>
           <SectionTitle
             title="צרו קשר"
-            subtitle="יש לכן שאלה? רוצים להתחיל? דברו איתי ישירות 💌"
+            subtitle="יש לכן שאלה?   דברו איתי ישירות 💌"
           />
         </div>
 
@@ -119,7 +119,7 @@ export default function Contact() {
             data-reveal
             data-from="scale"
             data-delay="80"
-            className="bg-white dark:bg-gray-800 rounded-3xl shadow-card border border-gray-100 dark:border-gray-700 p-8"
+            className="relative bg-white/80 backdrop-blur-sm dark:bg-gray-800 rounded-3xl shadow-card border border-rose-100/60 dark:border-gray-700 p-8 ring-1 ring-rose-100 dark:ring-0"
             aria-label="טופס יצירת קשר"
           >
             {/* Text fields */}
@@ -164,7 +164,7 @@ export default function Contact() {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="כתוב/י כאן את הודעתך..."
+                placeholder="כתבי כאן את ההודעה..."
                 required
                 disabled={status === "loading"}
                 className="form-input resize-none disabled:opacity-60"

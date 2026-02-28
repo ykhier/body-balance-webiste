@@ -5,6 +5,8 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Button from "@/components/ui/Button";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -65,7 +67,7 @@ export default function AdminLoginPage() {
             required
             autoComplete="username"
             disabled={loading}
-            placeholder="admin"
+            placeholder="שם משתמש"
           />
 
           <Input
@@ -76,7 +78,7 @@ export default function AdminLoginPage() {
             required
             autoComplete="current-password"
             disabled={loading}
-            placeholder="••••••••"
+            placeholder="סיסמה"
           />
 
           {error && (
@@ -85,14 +87,19 @@ export default function AdminLoginPage() {
             </p>
           )}
 
-          <button
+          <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#4E8B6E] hover:bg-[#3d7059] text-white font-bold
-              py-3 rounded-xl transition-colors duration-200 disabled:opacity-60 text-sm"
+            className="w-full rounded-xl py-3 text-sm disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0"
           >
-            {loading ? "מתחבר..." : "התחבר"}
-          </button>
+            {loading ? (
+              <>
+                <Spinner className="size-4" /> מתחבר
+              </>
+            ) : (
+              "התחבר"
+            )}
+          </Button>
         </form>
       </div>
     </div>

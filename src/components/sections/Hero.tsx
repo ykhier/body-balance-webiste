@@ -1,8 +1,13 @@
 ﻿// src/components/sections/Hero.tsx
 "use client";
 
-import React from "react";
 import Image from "next/image";
+
+const Stats = [
+  { value: "3+", label: "שנות ניסיון" },
+  { value: "100+", label: "לקוחות מרוצים" },
+  { value: "100%", label: "ליווי אישי" },
+];
 
 export default function Hero() {
   return (
@@ -119,11 +124,7 @@ export default function Hero() {
               </a>
             </div>
             <div className="hero-anim-stats flex items-center gap-5 sm:gap-6 mt-8 sm:mt-10 justify-center md:justify-start">
-              {[
-                { value: "3+", label: "שנות ניסיון" },
-                { value: "100+", label: "לקוחות מרוצים" },
-                { value: "100%", label: "ליווי אישי" },
-              ].map((s) => (
+              {Stats.map((s) => (
                 <div key={s.label} className="text-center">
                   <p className="text-xl sm:text-2xl font-extrabold text-rose-500">
                     {s.value}
