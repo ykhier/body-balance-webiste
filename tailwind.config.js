@@ -95,8 +95,8 @@ module.exports = {
   		},
   		fontFamily: {
   			sans: [
-  				'var(--font-heebo)',
-  				'Heebo',
+  				'var(--font-rubik)',
+  				'Rubik',
   				'Arial',
   				'sans-serif'
   			]

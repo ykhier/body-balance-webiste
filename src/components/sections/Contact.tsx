@@ -26,11 +26,11 @@ const FIELDS: {
   { name: "name", label: "שם מלא", type: "text", placeholder: "שם מלא" },
   {
     name: "email",
-    label: "אימייל",
+    label: "מייל",
     type: "email",
-    placeholder: "you@example.com",
+    placeholder: "braahkhier@gmail.com",
   },
-  { name: "phone", label: "טלפון", type: "tel", placeholder: "050-0000000" },
+  { name: "phone", label: "טלפון", type: "tel", placeholder: "0542576613" },
 ];
 
 const EMPTY: ContactFormData = { name: "", email: "", phone: "", message: "" };

@@ -2,9 +2,17 @@
 // Root layout — sets RTL direction, Hebrew font, and metadata
 
 import type { Metadata } from "next";
+import { Rubik } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
+
+const rubik = Rubik({
+  subsets: ["hebrew", "latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-rubik",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "בראאה חיר | ליווי תזונאי אישי",
@@ -23,21 +31,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     // dir="rtl" + lang="he" for full RTL & Hebrew support
-    <html lang="he" dir="rtl" suppressHydrationWarning>
+    <html lang="he" dir="rtl" suppressHydrationWarning className={rubik.variable}>
       <head>
         <link
           rel="icon"
           href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
         />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
