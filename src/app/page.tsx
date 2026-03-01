@@ -6,7 +6,8 @@ import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import TargetAudience from "@/components/sections/TargetAudience";
 import Services from "@/components/sections/Services";
-import Payment from "@/components/sections/Payment";
+import NutritionCalculator from "@/components/sections/NutritionCalculator";
+import Payment from "@/components/sections/Payment/Payment";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -29,7 +30,7 @@ export default function HomePage() {
         {/* 4. Services */}
         <Services />
 
-        {/* 5. Payment (UI only) */}
+        {/* 6. Payment (UI only) */}
         <Payment />
 
         {/* 6. Contact */}

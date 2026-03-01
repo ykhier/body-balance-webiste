@@ -62,7 +62,7 @@ export default function TargetAudience() {
               data-delay={String(i * 90)}
               className="h-full"
             >
-              <Card className="flex flex-col items-center text-center group h-full">
+              <Card className="flex flex-col items-center text-center group h-full border border-rose-200 dark:border-gray-700">
                 <div
                   className={`${item.color} dark:bg-gray-700 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300`}
                   aria-hidden="true"

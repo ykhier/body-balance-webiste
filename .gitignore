@@ -28,4 +28,7 @@ Thumbs.db
 *.njsproj
 *.sln
 
+#claude code file
+.CLAUDE.md
+
 /src/generated/prisma
