@@ -3,55 +3,36 @@
 
 import React from "react";
 import SectionTitle from "@/components/ui/SectionTitle";
-import Card from "@/components/ui/Card";
 import { useT } from "@/contexts/LanguageContext";
 
-const COLORS = [
-  { color: "bg-rose-50", textColor: "text-rose-500", icon: "🧒" },
-  { color: "bg-green-50", textColor: "text-green-600", icon: "🌿" },
-  { color: "bg-rose-50", textColor: "text-rose-500", icon: "⚖️" },
-  { color: "bg-emerald-50", textColor: "text-emerald-600", icon: "💪" },
+const STYLES = [
+  { icon: "🧒", grad: "from-rose-500 to-rose-400",    glow: "shadow-[0_6px_20px_rgba(244,63,94,0.28)]",   ring: "ring-rose-100    dark:ring-rose-900/25" },
+  { icon: "🌿", grad: "from-emerald-500 to-emerald-400", glow: "shadow-[0_6px_20px_rgba(52,211,153,0.25)]",  ring: "ring-emerald-100 dark:ring-emerald-900/25" },
+  { icon: "⚖️", grad: "from-orange-400 to-amber-400",    glow: "shadow-[0_6px_20px_rgba(251,146,60,0.25)]",  ring: "ring-orange-100  dark:ring-orange-900/25" },
+  { icon: "💪", grad: "from-green-500 to-teal-500",      glow: "shadow-[0_6px_20px_rgba(20,184,166,0.25)]",  ring: "ring-teal-100    dark:ring-teal-900/25" },
 ];
 
 export default function TargetAudience() {
   const t = useT();
-  const items = t.audience.items.map((item, i) => ({ ...item, ...COLORS[i] }));
+  const items = t.audience.items.map((item, i) => ({ ...item, ...STYLES[i] }));
 
   return (
-    <section
-      id="audience"
-      className="section-padding bg-gradient-to-b from-white to-rose-50 dark:from-gray-900 dark:to-gray-800"
-      aria-labelledby="audience-heading"
-    >
+    <section id="audience" className="section-padding bg-gradient-to-b from-white to-[#FDFAF5] dark:from-gray-900 dark:to-[#0D1A14]" aria-labelledby="audience-heading">
       <div className="section-container">
         <div data-reveal>
-          <SectionTitle
-            title={t.audience.title}
-            subtitle={t.audience.subtitle}
-          />
+          <SectionTitle title={t.audience.title} subtitle={t.audience.subtitle} />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((item, i) => (
-            <div
-              key={item.title}
-              data-reveal
-              data-delay={String(i * 90)}
-              className="h-full"
-            >
-              <Card className="flex flex-col items-center text-center group h-full border border-rose-200 dark:border-gray-700">
-                <div
-                  className={`${item.color} dark:bg-gray-700 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300`}
-                  aria-hidden="true"
-                >
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal data-stagger>
+          {items.map((item) => (
+            <div key={item.title} className="h-full">
+              <div className="card-premium p-7 flex flex-col items-center text-center h-full group">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.grad} ${item.glow} ring-4 ${item.ring} flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`} aria-hidden="true">
                   {item.icon}
                 </div>
-                <h3 className={`text-xl font-extrabold mb-2 ${item.textColor}`}>
-                  {item.title}
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              </Card>
+                <h3 className="text-lg font-extrabold text-gray-800 dark:text-white mb-2">{item.title}</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{item.description}</p>
+              </div>
             </div>
           ))}
         </div>

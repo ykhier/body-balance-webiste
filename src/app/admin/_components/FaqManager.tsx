@@ -121,24 +121,29 @@ export default function FaqManager() {
     }
   };
 
+  const GREEN = "#4E8B6E";
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 sm:py-8" dir="rtl">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-white">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
             שאלות נפוצות
           </h2>
-          <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
-            {items.length} שאלות מוצגות באתר
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+            {loading ? "טוען..." : `${items.length} שאלות מוצגות באתר`}
           </p>
         </div>
         <button
           onClick={openNew}
           disabled={editingId !== null}
-          className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-[#4E8B6E] text-white rounded-xl text-xs sm:text-sm font-semibold hover:bg-[#3d7459] transition-colors disabled:opacity-50"
+          className="flex items-center gap-1.5 px-4 py-2 text-white rounded-xl text-sm font-semibold transition-all duration-200 disabled:opacity-50"
+          style={{ background: `linear-gradient(135deg, ${GREEN}, #3d7459)`, boxShadow: `0 2px 10px ${GREEN}40` }}
         >
-          <span className="text-lg leading-none">+</span>
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4"/>
+          </svg>
           הוסף שאלה
         </button>
       </div>
@@ -157,14 +162,17 @@ export default function FaqManager() {
 
       {/* List */}
       {loading ? (
-        <div className="flex justify-center py-16 text-gray-400">
-          <Spinner className="size-6" />
+        <div className="flex flex-col items-center justify-center py-20 gap-3">
+          <Spinner className="size-6 text-gray-400" />
+          <p className="text-sm text-gray-400 dark:text-gray-500">טוען שאלות...</p>
         </div>
       ) : items.length === 0 ? (
-        <div className="text-center py-16 text-gray-400 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl">
-          <div className="text-4xl mb-3">❓</div>
-          <p className="font-medium">אין שאלות עדיין</p>
-          <p className="text-sm mt-1">לחץ/י על &quot;הוסף שאלה&quot; כדי להתחיל</p>
+        <div className="admin-card text-center py-16">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl" style={{ background: `${GREEN}15` }}>
+            ❓
+          </div>
+          <p className="font-semibold text-gray-600 dark:text-gray-300">אין שאלות עדיין</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">לחץ/י על &quot;הוסף שאלה&quot; כדי להתחיל</p>
         </div>
       ) : (
         <div className="space-y-3">

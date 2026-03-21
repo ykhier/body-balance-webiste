@@ -10,7 +10,6 @@ export default function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  // Before hydration: show Moon (light mode default) — no layout shift
   const isDark = mounted && theme === "dark";
 
   return (
@@ -32,9 +31,7 @@ export default function ThemeToggle() {
           position: "absolute",
           transition: "all 0.3s",
           opacity: isDark ? 1 : 0,
-          transform: isDark
-            ? "rotate(0deg) scale(1)"
-            : "rotate(90deg) scale(0.5)",
+          transform: isDark ? "rotate(0deg) scale(1)" : "rotate(90deg) scale(0.5)",
         }}
       >
         <Sun style={{ width: 16, height: 16, color: "#facc15" }} />
@@ -46,9 +43,7 @@ export default function ThemeToggle() {
           position: "absolute",
           transition: "all 0.3s",
           opacity: isDark ? 0 : 1,
-          transform: isDark
-            ? "rotate(-90deg) scale(0.5)"
-            : "rotate(0deg) scale(1)",
+          transform: isDark ? "rotate(-90deg) scale(0.5)" : "rotate(0deg) scale(1)",
         }}
       >
         <Moon style={{ width: 16, height: 16, color: "#4E8B6E" }} />

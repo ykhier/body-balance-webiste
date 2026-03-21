@@ -29,13 +29,16 @@ export default function FaqForm({
   const canSave = heValid && arValid;
 
   return (
-    <div className="bg-white dark:bg-gray-900 border-2 border-[#4E8B6E]/40 rounded-2xl p-4 sm:p-5 shadow-sm mb-3">
-      <h3 className="font-bold text-gray-700 dark:text-gray-200 mb-4 text-sm">
-        {isNew ? "➕ שאלה חדשה" : "✏️ עריכת שאלה"}
+    <div className="admin-card p-4 sm:p-5 mb-3 border-2 border-[#4E8B6E]/30 dark:border-emerald-700/30">
+      <h3 className="font-bold text-gray-800 dark:text-gray-100 mb-4 text-sm flex items-center gap-2">
+        <span className="w-5 h-5 rounded-lg flex items-center justify-center text-white text-xs" style={{ background: "linear-gradient(135deg, #4E8B6E, #3d7459)" }}>
+          {isNew ? "+" : "✎"}
+        </span>
+        {isNew ? "שאלה חדשה" : "עריכת שאלה"}
       </h3>
 
       {/* Language tabs */}
-      <div className="flex gap-1 mb-4 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
+      <div className="flex gap-1 mb-4 bg-gray-100 dark:bg-[#0D1117] rounded-xl p-1">
         <TabBtn
           active={activeTab === "he"}
           onClick={() => setActiveTab("he")}
@@ -54,9 +57,9 @@ export default function FaqForm({
       <div className={activeTab === "he" ? "block" : "hidden"}>
         <div className="space-y-3">
           <div>
-            <label className="form-label">שאלה בעברית</label>
+            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1.5 uppercase tracking-wide">שאלה בעברית</label>
             <input
-              className="form-input"
+              className="admin-input"
               value={form.questionHe}
               onChange={(e) =>
                 onChange({ ...form, questionHe: e.target.value })
@@ -68,9 +71,9 @@ export default function FaqForm({
             />
           </div>
           <div>
-            <label className="form-label">תשובה בעברית</label>
+            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1.5 uppercase tracking-wide">תשובה בעברית</label>
             <textarea
-              className="form-input resize-y"
+              className="admin-input resize-y"
               value={form.answerHe}
               onChange={(e) => onChange({ ...form, answerHe: e.target.value })}
               placeholder="הכנס את התשובה בעברית..."
@@ -97,9 +100,9 @@ export default function FaqForm({
       <div className={activeTab === "ar" ? "block" : "hidden"}>
         <div className="space-y-3">
           <div>
-            <label className="form-label">שאלה בערבית</label>
+            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1.5 uppercase tracking-wide">שאלה בערבית</label>
             <input
-              className="form-input"
+              className="admin-input"
               value={form.questionAr}
               onChange={(e) =>
                 onChange({ ...form, questionAr: e.target.value })
@@ -109,9 +112,9 @@ export default function FaqForm({
             />
           </div>
           <div>
-            <label className="form-label">תשובה בערבית</label>
+            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1.5 uppercase tracking-wide">תשובה בערבית</label>
             <textarea
-              className="form-input resize-y"
+              className="admin-input resize-y"
               value={form.answerAr}
               onChange={(e) => onChange({ ...form, answerAr: e.target.value })}
               placeholder="הכנס את התשובה בערבית..."
@@ -148,7 +151,7 @@ export default function FaqForm({
       <div className="flex gap-2 mt-4 justify-end">
         <button
           onClick={onCancel}
-          className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
+          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors"
         >
           ביטול
         </button>
@@ -156,7 +159,8 @@ export default function FaqForm({
           onClick={onSave}
           disabled={saving || !canSave}
           title={!canSave ? "יש למלא שאלה ותשובה בשתי השפות" : undefined}
-          className="flex items-center gap-2 px-5 py-2 bg-[#4E8B6E] text-white rounded-xl text-sm font-semibold hover:bg-[#3d7459] transition-colors disabled:opacity-40"
+          className="flex items-center gap-2 px-5 py-2 text-white rounded-xl text-sm font-semibold transition-all duration-200 disabled:opacity-40"
+          style={{ background: "linear-gradient(135deg, #4E8B6E, #3d7459)", boxShadow: canSave && !saving ? "0 2px 10px rgba(78,139,110,0.4)" : undefined }}
         >
           {saving && <Spinner className="size-3.5" />}
           שמור

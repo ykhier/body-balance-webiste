@@ -187,7 +187,8 @@ header {
 /* Logo / brand text inside header — smooth compact scale */
 header .navbar-logo {
   transition: transform 0.35s var(--ease-wellness);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   transform-origin: right center; /* RTL: scale from right edge */
 }
 header.is-scrolled .navbar-logo {
@@ -276,6 +277,118 @@ header nav a:hover::after { width: 100%; }
 .btn-wellness-outline:hover {
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* =============================================
+   PREMIUM DARK-MODE DESIGN SYSTEM
+   ============================================= */
+
+/* Dark mode body — deep forest, not flat gray */
+.dark body { background-color: #0D1A14; }
+
+/* Floating animations for decorative elements */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(1.2deg); }
+  66%       { transform: translateY(-5px) rotate(-0.6deg); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-16px); }
+}
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(1.04); }
+}
+
+/* Organic leaf animations — mimics a real leaf drifting in a breeze */
+@keyframes leaf-drift {
+  0%   { transform: translateY(0px)   translateX(0px)   rotate(-3deg)  scale(1);    opacity: 0.85; }
+  20%  { transform: translateY(-14px) translateX(5px)   rotate(1.5deg) scale(1.02); opacity: 1;    }
+  45%  { transform: translateY(-22px) translateX(-4px)  rotate(-1deg)  scale(1);    opacity: 0.9;  }
+  70%  { transform: translateY(-12px) translateX(6px)   rotate(2.5deg) scale(1.01); opacity: 1;    }
+  100% { transform: translateY(0px)   translateX(0px)   rotate(-3deg)  scale(1);    opacity: 0.85; }
+}
+@keyframes leaf-drift-alt {
+  0%   { transform: translateY(-8px)  translateX(0px)   rotate(4deg)   scale(1);    opacity: 0.8;  }
+  30%  { transform: translateY(-20px) translateX(-6px)  rotate(-1deg)  scale(1.02); opacity: 1;    }
+  55%  { transform: translateY(-10px) translateX(5px)   rotate(3deg)   scale(1);    opacity: 0.9;  }
+  80%  { transform: translateY(-24px) translateX(-3px)  rotate(-2deg)  scale(1.01); opacity: 1;    }
+  100% { transform: translateY(-8px)  translateX(0px)   rotate(4deg)   scale(1);    opacity: 0.8;  }
+}
+
+.anim-float         { animation: float-gentle  7s ease-in-out infinite; }
+.anim-float-delayed { animation: float-gentle  7s ease-in-out 2.5s infinite; }
+.anim-leaf          { animation: leaf-drift    10s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
+.anim-leaf-alt      { animation: leaf-drift-alt 13s cubic-bezier(0.37, 0, 0.63, 1) 1.8s infinite; }
+.anim-pulse-ring    { animation: pulse-ring    4s ease-in-out infinite; }
+
+/* Premium utility classes */
+@layer components {
+  .card-premium {
+    @apply bg-white dark:bg-gray-800/90
+           rounded-3xl
+           shadow-[0_4px_24px_rgba(78,139,110,0.10),0_1px_4px_rgba(0,0,0,0.04)]
+           border border-rose-50/80 dark:border-gray-700/60
+           transition-all duration-300
+           hover:shadow-[0_12px_48px_rgba(78,139,110,0.16),0_2px_8px_rgba(0,0,0,0.06)]
+           hover:-translate-y-1.5;
+  }
+
+  .badge-premium {
+    @apply inline-flex items-center gap-2
+           bg-rose-50 dark:bg-rose-900/30
+           text-rose-600 dark:text-rose-300
+           text-xs font-bold tracking-[0.14em] uppercase
+           px-5 py-2.5 rounded-full
+           border border-rose-100 dark:border-rose-800/30;
+  }
+
+  .section-accent-line {
+    @apply w-10 h-1 bg-gradient-to-l from-rose-500 to-rose-300 rounded-full;
+  }
+
+  .text-gradient-brand {
+    @apply bg-gradient-to-l from-rose-600 via-rose-500 to-rose-400 bg-clip-text text-transparent;
+  }
+
+  /* Admin-specific dark components */
+  .admin-card {
+    @apply bg-white dark:bg-[#161B22]
+           rounded-2xl border border-gray-200 dark:border-gray-800/80
+           shadow-[0_1px_4px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.3)];
+  }
+
+  .admin-input {
+    @apply w-full rounded-xl px-4 py-2.5
+           bg-gray-50 dark:bg-[#0D1117]
+           border border-gray-200 dark:border-gray-700/60
+           text-gray-800 dark:text-gray-100
+           placeholder-gray-400 dark:placeholder-gray-600
+           focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:border-emerald-500/50
+           transition-all duration-200 text-sm;
+  }
+}
+
+/* Stat divider (vertical separator) */
+.stat-divider {
+  width: 1px;
+  height: 2.5rem;
+  background: linear-gradient(to bottom, transparent, rgba(78,139,110,0.3), transparent);
+  flex-shrink: 0;
+  margin: 0 1rem;
+}
+
+/* Footer wave — match page background */
+.footer-wave path { fill: #FDFAF5; }
+.dark .footer-wave path { fill: #0D1A14; }
+
+/* Dark card shadow enhancement */
+.dark .card-premium {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.2);
+}
+.dark .card-premium:hover {
+  box-shadow: 0 12px 48px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.25);
 }
 
 /* =============================================
