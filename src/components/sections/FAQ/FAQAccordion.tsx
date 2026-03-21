@@ -32,7 +32,6 @@ export default function FAQAccordion({ items }: { items: Item[] }) {
       {items.map((item) => (
         <FAQItem
           key={item.id}
-          id={String(item.id)}
           question={lang === "he" ? item.questionHe : item.questionAr}
           answer={lang === "he" ? item.answerHe : item.answerAr}
           isOpen={openId === item.id}
