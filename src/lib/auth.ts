@@ -21,7 +21,7 @@ export function safeCompare(a: string, b: string): boolean {
     return false;
   }
 }
-
+/// Note: In production, use a secure, random SESSION_SECRET and store it safely (e.g., in environment variables or a secrets manager).
 /** Generate a deterministic session token from username + secret */
 export function generateSessionToken(username: string): string {
   return createHash("sha256")
